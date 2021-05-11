@@ -1,0 +1,12 @@
+v-model="formdata.password"
+v-model="formdata.username"
+
+
+
+    methods: {
+      handle_Login(){
+        this.$http.post('login',this.formdata).then((res)=>{
+          console.log(res)
+        })
+      }
+    }
