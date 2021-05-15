@@ -8,9 +8,11 @@
               {{message}}<i class="el-icon-arrow-down el-icon--right"></i>
             </el-button>
             <el-dropdown-menu class="droproom" slot="dropdown">
+              <el-dropdown-item @click.native="select_to43T()">40T型答题卡</el-dropdown-item>
               <el-dropdown-item @click.native="select_to43lu()">43lu型答题卡</el-dropdown-item>
               <el-dropdown-item @click.native="select_to50lu()">50lu型答题卡</el-dropdown-item>
               <el-dropdown-item @click.native="select_to50T()">50T型答题卡</el-dropdown-item>
+              <el-dropdown-item @click.native="select_to85T()">85T型答题卡</el-dropdown-item>
               <el-dropdown-item @click.native="select_to90T()">90T型答题卡</el-dropdown-item>
               <el-dropdown-item @click.native="select_to105T()">105T型答题卡</el-dropdown-item>
             </el-dropdown-menu>
@@ -64,6 +66,9 @@
       }
     },
     methods:{
+      select_to43T(){
+        this.message="40T型答题卡"
+      },
       select_to43lu(){
         this.message="43lu型答题卡"
       },
@@ -72,6 +77,9 @@
       },
       select_to50T(){
         this.message="50T型答题卡"
+      },
+      select_to85T(){
+        this.message="85T型答题卡"
       },
       select_to90T(){
         this.message="90T型答题卡"
