@@ -76,6 +76,7 @@
       select_to105T() {
         this.message = "105T型答题卡"
       },
+      //导入已有模板
       tem(){
         this.$http.post('set_tem',this.message).then(res=> {
           console.log(res)
