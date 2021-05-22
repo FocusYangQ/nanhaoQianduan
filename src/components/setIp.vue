@@ -26,13 +26,6 @@
           @click="handleIP()"
         >确认</el-button>
       </div>
-      <div>
-        <el-button
-          class="toSetTemAndAns"
-          type="primary"
-          @click="handleToSetTemAndAns()"
-        >返回</el-button>
-      </div>
     </div>
     <router-view/>
   </div>
