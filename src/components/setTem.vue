@@ -22,22 +22,38 @@
       >设置模板</el-button>
     </div>
     <div class="changeTemContainer">
-      <div class="dispalyTem" v-html="answer"></div>
+      <div class="dispalyTem">
+        <el-input :rows="17" type="textarea" v-model="dataPost.TemText"></el-input>
+      </div>
       <div class="displayStdAns">
+        <el-dropdown>
+          <el-button type="primary" class="select_tem2">
+            {{message2}}<i class="el-icon-arrow-down el-icon--right"></i>
+          </el-button>
+          <el-dropdown-menu class="droproom" slot="dropdown">
+            <el-dropdown-item @click.native="select_to43T_2()">40T型答题卡</el-dropdown-item>
+            <el-dropdown-item @click.native="select_to43lu_2()">43lu型答题卡</el-dropdown-item>
+            <el-dropdown-item @click.native="select_to50lu_2()">50lu型答题卡</el-dropdown-item>
+            <el-dropdown-item @click.native="select_to50T_2()">50T型答题卡</el-dropdown-item>
+            <el-dropdown-item @click.native="select_to85T_2()">85T型答题卡</el-dropdown-item>
+            <el-dropdown-item @click.native="select_to90T_2()">90T型答题卡</el-dropdown-item>
+            <el-dropdown-item @click.native="select_to105T_2()">105T型答题卡</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
         <el-button
           class="setTemBtn0"
           type="primary"
-          @click="tem"
+          @click="impoTem()"
         >导入修改模板</el-button>
         <el-input
           class="TemNameDisplay"
           placeholder="模板名称"
-          v-model="temName">
+          v-model="dataPost.temName">
         </el-input>
         <el-button
           class="setTemBtn"
           type="primary"
-          @click="tem"
+          @click="savTem()"
         >保存模板</el-button>
       </div>
     </div>
@@ -52,6 +68,11 @@
       return {
         message: "请选择答题卡类型",
         answer: "尚未上传模板",
+        message2: "请选择基础模板",
+        dataPost: {
+          temName : '',
+          TemText : '模板尚未导入'
+        }
       }
     },
     methods: {
@@ -76,6 +97,70 @@
       select_to105T() {
         this.message = "105T型答题卡"
       },
+      select_to43T_2() {
+        this.message2 = "40T型答题卡"
+      },
+      select_to43lu_2() {
+        this.message2 = "43lu型答题卡"
+      },
+      select_to50lu_2() {
+        this.message2 = "50lu型答题卡"
+      },
+      select_to50T_2() {
+        this.message2 = "50T型答题卡"
+      },
+      select_to85T_2() {
+        this.message2 = "85T型答题卡"
+      },
+      select_to90T_2() {
+        this.message2 = "90T型答题卡"
+      },
+      select_to105T_2() {
+        this.message2 = "105T型答题卡"
+      },
+      impoTem(){
+        this.$http.post('readTem',this.message2).then(res=>{
+            this.dataPost.TemText = res.data;
+        })
+      },
+      savTem(){
+        console.log(this.temName)
+        console.log(this.TemText)
+        // const obj = {
+        //   this.temName : first
+        //   this.TemText ：second
+        // }
+        const obj = {
+          first : this.temName,
+          second : this.TemText
+      }
+        console.log(obj)
+        this.$http.post('saveTem', this.dataPost).then(res=>{
+            if(res.data == "0"){
+              this.$message.success("模板设置成功");
+            } else if(res.data == "2") {
+              this.$message.error("文件名重复，文件已存在");
+            } else if(res.data == "1"){
+              this.$message.error("文件创建失败");
+            }
+        })
+      },
+
+      // savTem(){
+      //   axios.post('saveTem',{
+      //     key1 : this.temName,
+      //     key2 : this.TemText
+      //   }).then( res => {
+      //     if(res.data == "0"){
+      //       this.$message.success("模板设置成功");
+      //     } else if(res.data == "2") {
+      //       this.$message.error("文件名重复，文件已存在");
+      //     } else if(res.data == "1"){
+      //       this.$message.error("文件创建失败");
+      //     }
+      //   })
+      // },
+
       //导入已有模板
       tem(){
         this.$http.post('set_tem',this.message).then(res=> {
@@ -121,8 +206,10 @@
   }
   .dispalyTem{
     background-color: white;
-    width: 500px;
-    height: 400px;
+    width: 400px;
+    height: 300px;
+    margin-top: 10px;
+    margin-left: 10px;
   }
 .setTemBtn{
   width: 160px;
@@ -133,5 +220,12 @@
     width: 160px;
     margin-left: 44px;
     margin-top:  100px;
+  }
+  .inputBoxOutside{
+    width: 200px;
+    height: 200px;
+  }
+  .select_tem2{
+    width: 160px;
   }
 </style>

@@ -96,6 +96,7 @@
 }
 .dispalyTem{
   width: 400px;
+  height: 100%;
 }
   .display{
     position: absolute;
