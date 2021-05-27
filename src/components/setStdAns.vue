@@ -6,7 +6,7 @@
           class="all_confirm"
           type="primary"
           width="400px"
-          @click="confirm()"
+          @click="setStdAns()"
         >录入答案</el-button>
         <el-button
           class="all_confirm"
@@ -18,23 +18,25 @@
     </div>
     <div class="display">
       <div class="displayTemOutside">
-        <div class="dispalyTem" v-html="answer"></div>
+        <el-input :rows="16" type="textarea" v-model="stdAns"></el-input>
       </div>
       <div>
         <div class="dispalyTemOutside2">
-          <div class="dispalyTem" v-html="disSetScore"></div>
+          <el-input :rows="9" type="textarea" v-model="disSetScore"></el-input>
         </div>
         <div class="inputBox">
           <div class="firstItem">
-            <div class="firstItemInputBox" v-html="first"></div>
+            <el-input :rows="1" class="elInp1" type="textarea" v-model="first"></el-input>
           </div>
-          <span class="forMark">~</span>
+          <span class="forMark">至</span>
           <div class="secondItem">
-            <div class="secondItemInputBox" v-html="second"></div>
+            <el-input :rows="1" class="elInp2" type="textarea" v-model="second"></el-input>
           </div>
+        </div>
+        <div class="setScore">
           <span class="scoreFenshu">分数</span>
           <div class="inputScore">
-            <div class="setScore" v-html="setScore"></div>
+            <el-input :rows="1" class="elInp3" type="textarea" v-model="score"></el-input>
           </div>
         </div>
         <el-button
@@ -54,11 +56,32 @@
     name: 'setStdAns',
   data(){
       return{
-        answer: "答案尚未录入" +
-          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
-          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        stdAns: "答案尚未录入",
         disSetScore: "尚未设置分数",
+        first : '',
+        second : '',
+        score : ''
       }
+  },
+  methods: {
+    setStdAns(){
+      this.$http.post('read_once').then(res=>{
+        console.log(res)
+        if(res.data == "noCard"){
+          this.answer="请检查光标阅读机中是否放置答题卡"
+        }
+        else{
+          this.stdAns = res.data
+        }
+      })
+    },
+    confirm(){
+      if(this.disSetScore === "尚未设置分数"){
+        this.disSetScore = ""
+      }
+      this.disSetScore = this.disSetScore + this.first + "~"
+        + this.second + "题  " + this.score + "分"
+    }
   }
   }
 </script>
@@ -81,7 +104,6 @@
   display: flex;
 }
 .displayTemOutside{
-  background-color: blue;
   width: 400px;
   height: 350px;
   margin-top: 23px;
@@ -113,33 +135,32 @@
   }
   .inputBox{
     margin-top: 20px;
-    margin-left: 38px;
+    margin-left: 19px;
     background-color: green;
     display: flex;
-    width: 200px;
+    width: 240px;
     height: 50px;
   }
   .confirmBtn{
     width: 100px;
-    margin-top: 20px;
+    margin-top: 5px;
     margin-left: 88px;
   }
   .firstItem{
-    background-color: white;
-    width: 20px;
+    /*background-color: white;*/
+    width: 80px;
     height: 30px;
     margin-left: 15px;
     margin-top: 10px;
   }
   .secondItem{
-    background-color: white;
-    width: 20px;
+    /*background-color: white;*/
+    width: 70px;
     height: 30px;
-    margin-left: 15px;
     margin-top: 10px;
   }
   .inputScore{
-    background-color: white;
+    /*background-color: white;*/
     width: 20px;
     height: 30px;
     margin-left: 15px;
@@ -152,5 +173,26 @@
   .forMark{
     margin-top: 13px;
     margin-left: 15px;
+  }
+  .elInp1{
+    width: 80px;
+    margin-left: 10px;
+  }
+  .elInp2{
+    width: 80px;
+    margin-left: 8px;
+  }
+.elInp3{
+  width: 80px;
+  margin-left: 8px;
+}
+  .setScore{
+    display: flex;
+    /*background-color: white;*/
+    margin-left: 30px;
+  }
+  .scoreFenshu{
+    margin-left: 50px;
+    height: 30px;
   }
 </style>

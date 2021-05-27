@@ -5,14 +5,14 @@
         <el-button
           class="upLoadBtn"
           type="primary"
-          @click="tem"
+          @click="readCard()"
         >读卡</el-button>
       </div>
       <div class="forBtn2" >
         <el-button
           class="confirm"
           type="primary"
-          @click="tem"
+          @click="goAhead()"
         >继续读卡</el-button>
       </div>
     </div>
@@ -36,13 +36,13 @@
         </el-table-column>
         <el-table-column
           class="tableColumn"
-          prop="stu_id"
+          prop="score"
           label="成绩"
           width="100">
         </el-table-column>
         <el-table-column
           class="tableColumn"
-          prop="stu_id"
+          prop="answer"
           label="答案"
           width="100">
         </el-table-column>
@@ -54,7 +54,70 @@
 
 <script>
   export default {
-    name: 'readCard'
+    name: 'readCard',
+    data(){
+      return{
+
+      }
+    },
+    methods: {
+      async readCard() {
+        let res = await this.$http.post('another')
+        console.log("开始读取res:" + res)
+        console.log("res.data[0].name:" + res.data[0].name)
+        while (res.data[0].name !== "false") {
+          console.log("=========================新数据展示========================")
+          console.log("进入while循环读取res.data:" + res.data)
+          console.log("测试数据1")
+          if (res.data[0].name == "EN16") {
+            this.$message.error("光标阅读机无卡");
+            break;
+          } else if (res.data[0].name == "EN05") {
+            this.$message.error("光标阅读机A传感器检测点线错");
+            break;
+          } else if (res.data[0].name == "EN09") {
+            this.$message.error("A传感器同步框计数值超界");
+            break;
+          }
+          console.log("res.data[0]:" + res.data[0])
+          console.log("测试数据2")
+          this.list.push(res.data[0])
+          console.log("测试数据3")
+          res = await this.$http.post('another')
+          console.log("测试数据4")
+          console.log("=========================新数据展示结束========================")
+        }
+        console.log(list)
+      },
+      async goAhead() {
+        let res = await this.$http.post('another')
+        console.log("开始读取res:" + res)
+        console.log("res.data[0].name:" + res.data[0].name)
+        while (res.data[0].name !== "false") {
+          console.log("=========================新数据展示========================")
+          console.log("进入while循环读取res.data:" + res.data)
+          console.log("测试数据1")
+          if (res.data[0].name == "EN16") {
+            this.$message.error("光标阅读机无卡");
+            break;
+          } else if (res.data[0].name == "EN05") {
+            this.$message.error("光标阅读机A传感器检测点线错");
+            break;
+          } else if (res.data[0].name == "EN09") {
+            this.$message.error("A传感器同步框计数值超界");
+            break;
+          }
+          console.log("res.data[0]:" + res.data[0])
+          console.log("测试数据2")
+          this.list.push(res.data[0])
+          console.log("测试数据3")
+          res = await this.$http.post('another')
+          console.log("测试数据4")
+          console.log("=========================新数据展示结束========================")
+        }
+        console.log(list)
+      }
+    }
   }
 </script>
 
