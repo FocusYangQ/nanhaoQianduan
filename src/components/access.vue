@@ -18,9 +18,9 @@
           if(res.data == true){
             this.$http.post('online').then(res =>{
               if(res.data == true){
-                this.$message.success("联机成功");
+                alert("联机成功");
               } else {
-                this.$message.error("Online指令发送失败");
+                alert("Online指令发送失败");
               }
             })
           } else{

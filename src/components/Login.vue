@@ -49,7 +49,7 @@
           if(res.data==true){
             return this.$router.push('/Home');
           }
-          this.$message.error("账号密码错误");
+          alert("账号密码错误");
         })
       }
     }

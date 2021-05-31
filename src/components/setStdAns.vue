@@ -65,15 +65,14 @@
   },
   methods: {
     setStdAns(){
-      this.$http.post('read_once').then(res=>{
+      let res = this.$http.post('read_once')
         console.log(res)
         if(res.data == "noCard"){
-          this.answer="请检查光标阅读机中是否放置答题卡"
+          alert("请检查光标阅读机中是否放置答题卡")
         }
         else{
           this.stdAns = res.data
         }
-      })
     },
     confirm(){
       if(this.disSetScore === "尚未设置分数"){

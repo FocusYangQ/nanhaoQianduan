@@ -22,7 +22,7 @@
         <el-button
           class="confirm"
           type="primary"
-          @click="fortest()"
+          @click="confirmNames()"
         >确认</el-button>
       </div>
     </div>
@@ -70,7 +70,8 @@ export default {
   name: 'setNaTem',
   data(){
     return{
-      showlist: [],
+      showlist: "",
+      arr : [{"name" : "hello", "prop" : "world"}],
       tableTitleData:[
         {
           label: '姓名',
@@ -82,7 +83,7 @@ export default {
         },
       ],
       currentPage: 1, //默认显示页面为1
-      pagesize: 5, //    每页的数据条数
+      pagesize: 10, //    每页的数据条数
       tableData: [], //需要data定义一些，tableData定义一个空数组，请求的数据都是存放这里面
     }
   },
@@ -90,6 +91,9 @@ export default {
     this.getData();
   },
   methods:{
+    confirmNames(){
+      let res = this.$http.post('uploadTable', this.showlist)
+    },
     importExcel(file){
       let self = this;
       const types = file.name.split(".")[1];
@@ -147,39 +151,20 @@ export default {
       return new Promise(function(resolve, reject) {
         const reader = new FileReader();
         reader.onload = function(e) {
-          console.log("e:" + e)
           const data = e.target.result;
           this.wb = xlsx.read(data, {
             type: "binary"
           });
-          console.log("this.wb:" + this.wb)
-          console.log(this.wb)
 
           const worksheet0 = this.wb.Sheets[this.wb.SheetNames[0]];
           const myData = xlsx.utils.sheet_to_json(worksheet0);
           self.showlist = myData;
-          // let arr = []
-          // for(let i = 0; i < myData.length; i++){
-          //   arr[i].name = myData[i].name
-          //   arr[i].stuId = myData[i].stuId.toString()
-          // }
-          console.log("第二次执行")
-          // self.showlist = arr
-          // this.$forceUpdate();
-          // console.log("myData:  " + myData.toString())
-          // console.log("this.showlist  " + this.showlist)
 
           let arr = [];
-          let obj={}
-          console.log("查看初始化list：" + this.list)
           for(let i = 0; i < myData.length; i++){
-            obj.name = myData[i].姓名
-            obj.stuId = myData[i].学号.toString()
-            arr.push(obj)
+            arr.push({name:myData[i].姓名.toString(),stuId:myData[i].学号.toString()})
           }
           self.showlist=arr
-          // console.log("this.showlist:" + this.showlist)
-          // console.log(this.showlist)
 
           const result = [];
           this.wb.SheetNames.forEach(sheetName => {
@@ -189,7 +174,6 @@ export default {
               sheet: xlsx.utils.sheet_to_formulae(this.wb.Sheets[sheetName])
             });
           });
-          console.log(result)
           resolve(result);
         };
         reader.readAsBinaryString(file.raw);
@@ -198,12 +182,10 @@ export default {
     //每页下拉显示数据
     handleSizeChange: function(size) {
       this.pagesize = size;
-      /*console.log(this.pagesize) */
     },
     //点击第几页
     handleCurrentChange: function(currentPage) {
       this.currentPage = currentPage;
-      /*console.log(this.currentPage) */
     },
   }
 }
@@ -246,8 +228,9 @@ export default {
     width: 300px;
     text-align: center;
   }
-  .upLoadBtn{
+  .uploadBtn{
     width: 160px;
+    height: 40px;
   }
   .confirm{
     width: 160px;

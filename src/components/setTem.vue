@@ -32,6 +32,7 @@
           </el-button>
           <el-dropdown-menu class="droproom" slot="dropdown">
             <el-dropdown-item @click.native="select_to43T_2()">40T型答题卡</el-dropdown-item>
+            <el-dropdown-item @click.native="select_to43T_2()">40T型答题卡</el-dropdown-item>
             <el-dropdown-item @click.native="select_to43lu_2()">43lu型答题卡</el-dropdown-item>
             <el-dropdown-item @click.native="select_to50lu_2()">50lu型答题卡</el-dropdown-item>
             <el-dropdown-item @click.native="select_to50T_2()">50T型答题卡</el-dropdown-item>
@@ -146,27 +147,12 @@
         })
       },
 
-      // savTem(){
-      //   axios.post('saveTem',{
-      //     key1 : this.temName,
-      //     key2 : this.TemText
-      //   }).then( res => {
-      //     if(res.data == "0"){
-      //       this.$message.success("模板设置成功");
-      //     } else if(res.data == "2") {
-      //       this.$message.error("文件名重复，文件已存在");
-      //     } else if(res.data == "1"){
-      //       this.$message.error("文件创建失败");
-      //     }
-      //   })
-      // },
-
       //导入已有模板
       tem(){
         this.$http.post('set_tem',this.message).then(res=> {
           console.log(res)
           if (res.data == true) {
-            this.$message.success("模板设置成功");
+            alert("模板设置成功");
           } else {
             this.$message.error("请检查IP地址是否正确后重新设置模板");
           }
@@ -219,13 +205,15 @@
   .setTemBtn0{
     width: 160px;
     margin-left: 44px;
-    margin-top:  100px;
+    margin-top:  50px;
   }
   .inputBoxOutside{
     width: 200px;
     height: 200px;
   }
   .select_tem2{
+    margin-top: 40px;
     width: 160px;
+    margin-left: 44px;
   }
 </style>
