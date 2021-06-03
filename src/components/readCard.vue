@@ -21,7 +21,7 @@
         class="table_container"
         :data="list"
         style="width: 100%">
-        <el-table-column width="200px" type="index"></el-table-column>
+        <el-table-column width="50px" type="index"></el-table-column>
         <el-table-column
           class="tableColumn"
           label="姓名"
@@ -32,7 +32,7 @@
           class="tableColumn"
           prop="stu_id"
           label="学号"
-          width="100">
+          width="150">
         </el-table-column>
         <el-table-column
           class="tableColumn"
@@ -44,7 +44,7 @@
           class="tableColumn"
           prop="answer"
           label="答案"
-          width="100">
+          width="300">
         </el-table-column>
       </el-table>
     </div>
@@ -57,16 +57,38 @@
     name: 'readCard',
     data(){
       return{
-
+        list : [] ,
+        table : [
+          {
+            label : '姓名',
+            prop : 'name'
+          } ,
+          {
+            label : '学号',
+            prop : 'stu_id'
+          } ,
+          {
+            label : '成绩',
+            prop : 'score'
+          } ,
+          {
+            label : '答案',
+            prop : 'answer'
+          } ,
+        ]
       }
     },
     methods: {
+
       async readCard() {
+        let sum = 0
         let res = await this.$http.post('another')
+        sum ++
         console.log("开始读取res:" + res)
         console.log("res.data[0].name:" + res.data[0].name)
         while (res.data[0].name !== "false") {
           console.log("=========================新数据展示========================")
+          sum ++
           console.log("进入while循环读取res.data:" + res.data)
           console.log("测试数据1")
           if (res.data[0].name == "EN16") {
@@ -80,6 +102,7 @@
             break;
           }
           console.log("res.data[0]:" + res.data[0])
+          console.log( res.data[0] )
           console.log("测试数据2")
           this.list.push(res.data[0])
           console.log("测试数据3")
@@ -87,8 +110,10 @@
           console.log("测试数据4")
           console.log("=========================新数据展示结束========================")
         }
+
         console.log(list)
       },
+
       async goAhead() {
         let res = await this.$http.post('another')
         console.log("开始读取res:" + res)

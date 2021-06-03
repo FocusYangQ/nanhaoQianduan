@@ -18,13 +18,13 @@
           if(res.data == true){
             this.$http.post('online').then(res =>{
               if(res.data == true){
-                alert("联机成功");
+                this.$message.success("联机成功");
               } else {
                 alert("Online指令发送失败");
               }
             })
           } else{
-            this.$message.error("Socket建立失败");
+            alert("Socket建立失败");
           }
         })
       },

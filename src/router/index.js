@@ -6,7 +6,7 @@ import Login from '@/components/Login'
 import Home from "@/components/Home";
 import otherLogin from "@/components/otherLogin";
 import SocreResult from "../components/SocreResult";
-import setTemAndAns from "../components/setTemAndAns";
+import setTemAndAns from "../refe/setTemAndAns";
 import setIp from "../components/setIp";
 import setTem from "../components/setTem"
 import readCard from "../components/readCard"

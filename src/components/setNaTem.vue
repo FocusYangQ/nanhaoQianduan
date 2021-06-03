@@ -92,7 +92,11 @@ export default {
   },
   methods:{
     confirmNames(){
-      let res = this.$http.post('uploadTable', this.showlist)
+      this.$http.post('uploadTable', this.showlist).then(res=>{
+        if(res.data === true){
+          alert("姓名库导入成功")
+        }
+      })
     },
     importExcel(file){
       let self = this;

@@ -127,10 +127,6 @@
       savTem(){
         console.log(this.temName)
         console.log(this.TemText)
-        // const obj = {
-        //   this.temName : first
-        //   this.TemText ：second
-        // }
         const obj = {
           first : this.temName,
           second : this.TemText

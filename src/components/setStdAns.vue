@@ -12,8 +12,8 @@
           class="all_confirm"
           type="primary"
           width="200px"
-          @click="confirm()"
-        >设置分数</el-button>
+          @click="allConfirm()"
+        >确认完毕</el-button>
       </div>
     </div>
     <div class="display">
@@ -44,7 +44,7 @@
           type="primary"
           width="200px"
           @click="confirm()"
-        >确认</el-button>
+        >确认分值</el-button>
       </div>
     </div>
     <router-view/>
@@ -65,21 +65,32 @@
   },
   methods: {
     setStdAns(){
-      let res = this.$http.post('read_once')
+      this.$http.post('read_once').then(res=>{
         console.log(res)
+        console.log(res.data)
+        console.log(res.status)
         if(res.data == "noCard"){
           alert("请检查光标阅读机中是否放置答题卡")
+        }
+        else if(res.data === "出现A传感器卡纸（同步信号）错"){
+          alert("出现A传感器卡纸（同步信号）错")
         }
         else{
           this.stdAns = res.data
         }
+      })
     },
     confirm(){
       if(this.disSetScore === "尚未设置分数"){
         this.disSetScore = ""
       }
       this.disSetScore = this.disSetScore + this.first + "~"
-        + this.second + "题  " + this.score + "分"
+        + this.second + "题  " + this.score + "分" + "\n"
+    },
+    allConfirm(){
+      let content = this.stdAns + "---" + "\n" + this.disSetScore
+      console.log(content)
+      this.$http.post('setStdAns',content)
     }
   }
   }
