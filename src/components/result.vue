@@ -17,36 +17,9 @@
       </div>
     </div>
     <div class="displayContainer">
-      <el-table
-        class="table_container"
-        :data="list"
-        style="width: 100%">
-        <el-table-column width="200px" type="index"></el-table-column>
-        <el-table-column
-          class="tableColumn"
-          label="姓名"
-          width="100"
-          prop="name">
-        </el-table-column>
-        <el-table-column
-          class="tableColumn"
-          prop="stu_id"
-          label="学号"
-          width="100">
-        </el-table-column>
-        <el-table-column
-          class="tableColumn"
-          prop="stu_id"
-          label="成绩"
-          width="100">
-        </el-table-column>
-        <el-table-column
-          class="tableColumn"
-          prop="stu_id"
-          label="答案"
-          width="100">
-        </el-table-column>
-      </el-table>
+      <div class="inputScore">
+        <el-input :rows="20" class="elInp3" type="textarea" v-model="score"></el-input>
+      </div>
     </div>
     <router-view/>
   </div>

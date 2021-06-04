@@ -6,20 +6,20 @@
           class="upLoadBtn"
           type="primary"
           @click="readCard()"
-        >读卡</el-button>
+        >读卡 / 继续读卡</el-button>
       </div>
       <div class="forBtn2" >
         <el-button
           class="confirm"
           type="primary"
           @click="goAhead()"
-        >继续读卡</el-button>
+        >读卡结束</el-button>
       </div>
     </div>
     <div class="displayContainer">
       <el-table
         class="table_container"
-        :data="list"
+        :data="list.slice((currentPage-1)*pagesize,currentPage*pagesize)"
         style="width: 100%">
         <el-table-column width="50px" type="index"></el-table-column>
         <el-table-column
@@ -47,6 +47,19 @@
           width="300">
         </el-table-column>
       </el-table>
+      <div class="pagination">
+        <el-pagination
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page="currentPage"
+          :page-sizes="[5, 10, 20, 40]"
+          :page-size="pagesize"
+          layout="total,sizes,prev, pager, next"
+          :total="list.length"
+          prev-text="上一页"
+          next-text="下一页">
+        </el-pagination>
+      </div>
     </div>
     <router-view/>
   </div>
@@ -75,7 +88,10 @@
             label : '答案',
             prop : 'answer'
           } ,
-        ]
+        ],
+        currentPage: 1, //默认显示页面为1
+        pagesize: 10, //    每页的数据条数
+        tableData: [], //需要data定义一些，tableData定义一个空数组，请求的数据都是存放这里面
       }
     },
     methods: {
@@ -114,34 +130,35 @@
         console.log(list)
       },
 
-      async goAhead() {
-        let res = await this.$http.post('another')
-        console.log("开始读取res:" + res)
-        console.log("res.data[0].name:" + res.data[0].name)
-        while (res.data[0].name !== "false") {
-          console.log("=========================新数据展示========================")
-          console.log("进入while循环读取res.data:" + res.data)
-          console.log("测试数据1")
-          if (res.data[0].name == "EN16") {
-            this.$message.error("光标阅读机无卡");
-            break;
-          } else if (res.data[0].name == "EN05") {
-            this.$message.error("光标阅读机A传感器检测点线错");
-            break;
-          } else if (res.data[0].name == "EN09") {
-            this.$message.error("A传感器同步框计数值超界");
-            break;
+      goAhead() {
+        console.log( this.list.length )
+
+        this.$http.post('setSum' , this.list.length.toString() ).then(res=>{
+
+          if ( res.data === true ) {
+
+
+
           }
-          console.log("res.data[0]:" + res.data[0])
-          console.log("测试数据2")
-          this.list.push(res.data[0])
-          console.log("测试数据3")
-          res = await this.$http.post('another')
-          console.log("测试数据4")
-          console.log("=========================新数据展示结束========================")
-        }
-        console.log(list)
-      }
+
+        })
+
+      } ,
+
+
+
+      //分页菜单
+      //每页下拉显示数据
+      handleSizeChange: function(size) {
+        this.pagesize = size;
+      },
+      //点击第几页
+      handleCurrentChange: function(currentPage) {
+        this.currentPage = currentPage;
+      },
+
+
+
     }
   }
 </script>

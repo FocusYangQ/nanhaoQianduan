@@ -183,6 +183,10 @@ export default {
         reader.readAsBinaryString(file.raw);
       });
     },
+
+
+
+    //分页菜单
     //每页下拉显示数据
     handleSizeChange: function(size) {
       this.pagesize = size;
@@ -191,6 +195,8 @@ export default {
     handleCurrentChange: function(currentPage) {
       this.currentPage = currentPage;
     },
+
+
   }
 }
 </script>
