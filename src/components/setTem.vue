@@ -137,7 +137,7 @@
               this.$message.success("模板设置成功");
             } else if(res.data == "2") {
               this.$message.error("文件名重复，文件已存在");
-            } else if(res.data == "1"){
+            } else if(res.data == "1") {
               this.$message.error("文件创建失败");
             }
         })

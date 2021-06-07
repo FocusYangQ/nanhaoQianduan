@@ -5,20 +5,20 @@
         <el-button
           class="upLoadBtn"
           type="primary"
-          @click="tem"
+          @click="tem()"
         >显示数据</el-button>
       </div>
       <div class="forBtn2" >
         <el-button
           class="confirm"
           type="primary"
-          @click="tem"
+          @click="exportData()"
         >导出数据</el-button>
       </div>
     </div>
     <div class="displayContainer">
       <div class="inputScore">
-        <el-input :rows="20" class="elInp3" type="textarea" v-model="score"></el-input>
+        <el-input :rows="20" class="elInp3" type="textarea" v-model="resForDis"></el-input>
       </div>
     </div>
     <router-view/>
@@ -27,7 +27,55 @@
 
 <script>
   export default {
-    name: 'result'
+    name: 'result' ,
+
+    data () {
+
+      return {
+
+        resForDis : "尚未录入"
+
+      }
+
+    } ,
+
+    methods : {
+
+      tem() {
+
+        let self = this;
+
+        this.$http.post('averageScore').then( res => {
+
+          console.log( res.data )
+          self.resForDis = "平均分:   " + res.data + "\n\n"
+
+          self.resForDis += "正答率:   \n"
+          this.$http.post('corRate').then( res => {
+
+            console.log( res.data )
+            let len = Object.getOwnPropertyNames ( res.data ).length
+            console.log ( len ) ;
+            for ( var i = 0 ; i < len ; i ++ ) {
+
+              console.log( i )
+              self.resForDis +=  "第" + ( i + 1 ) + "题：  " + res.data [ i ] + "\n"
+
+            }
+
+          } )
+
+        } )
+
+      } ,
+
+      exportData ( ) {
+
+
+
+      }
+
+    }
   }
 </script>
 
