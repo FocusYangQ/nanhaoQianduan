@@ -97,6 +97,12 @@
 </script>
 
 <style scoped>
+  .all_confirm {
+    background-color: #009b82;
+  }
+  .confirmBtn {
+    background-color: #009b82;
+  }
 .btnContainerOutside{
   background-color: white;
   width: 500px;
@@ -109,7 +115,6 @@
   top: 15%;
 }
 .btnContainerInside{
-  background-color: blue;
   width: 400px;
   display: flex;
 }
@@ -135,7 +140,6 @@
     left: 28%;
     top: 35%;
     display: flex;
-    background-color: yellow;
     width: 700px;
     height: 400px;
   }
@@ -146,7 +150,6 @@
   .inputBox{
     margin-top: 20px;
     margin-left: 19px;
-    background-color: green;
     display: flex;
     width: 240px;
     height: 50px;

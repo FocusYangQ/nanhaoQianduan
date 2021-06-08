@@ -92,6 +92,12 @@
     display: block;
     width: 400px;
   }
+  .upLoadBtn {
+    background-color: #009b82;
+  }
+  .confirm {
+    background-color: #009b82;
+  }
   .btnContainer{
     height: 100px;
     width: 600px;

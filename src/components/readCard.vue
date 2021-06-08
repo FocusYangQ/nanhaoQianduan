@@ -137,8 +137,6 @@
 
           if ( res.data === true ) {
 
-
-
           }
 
         })
@@ -168,6 +166,12 @@
     display: block;
     width: 400px;
   }
+  .upLoadBtn {
+    background-color: #009b82;
+  }
+  .confirm {
+    background-color: #009b82;
+  }
   .btnContainer{
     height: 100px;
     width: 600px;
@@ -181,7 +185,6 @@
     position: absolute;
     left: 30%;
     top: 30%;
-    background-color: yellow;
     margin-top: 20px;
     width: 800px;
   }

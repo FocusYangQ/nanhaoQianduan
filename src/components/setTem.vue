@@ -159,9 +159,21 @@
 </script>
 
 <style scoped>
+  .select_tem{
+    background-color: #009b82;
+  }
   .Container{
     display: flex;
     background-color: white;
+  }
+  .select_tem2 {
+    background-color: #009b82;
+  }
+  .setTemBtn0 {
+    background-color: #009b82;
+  }
+  .setTemBtn {
+    background-color: #009b82;
   }
 .BtnContainer{
   position: absolute;

@@ -202,6 +202,12 @@ export default {
 </script>
 
 <style scoped>
+  .uploadBtn {
+    background-color: #009b82;
+  }
+  .confirm {
+    background-color: #009b82;
+  }
   .allContainer{
     display: block;
     width: 400px;
@@ -219,7 +225,6 @@ export default {
     position: absolute;
     left: 30%;
     top: 30%;
-    background-color: yellow;
     margin-top: 20px;
     width: 800px;
   }
