@@ -33,7 +33,7 @@
 <script>
   export default {
     name: 'Login',
-    data(){
+    data() {
       return {
         imgSrc:require('../assets/pictures/LoginBackground.png'),
         user_info: {

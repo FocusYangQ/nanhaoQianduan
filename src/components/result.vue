@@ -12,7 +12,7 @@
         <el-button
           class="confirm"
           type="primary"
-          @click="exportData()"
+          @click="exportDataTo()"
         >导出数据</el-button>
       </div>
     </div>
@@ -33,7 +33,10 @@
 
       return {
 
-        resForDis : "尚未录入"
+        resForDis : "尚未录入" ,
+        exData : {
+          exportData : ''
+        }
 
       }
 
@@ -69,9 +72,14 @@
 
       } ,
 
-      exportData ( ) {
+      exportDataTo ( ) {
+
+        console.log ( this.resForDis )
+        this.$http.post( 'saveResult' , this.resForDis ).then( res => {
 
 
+
+        } )
 
       }
 
