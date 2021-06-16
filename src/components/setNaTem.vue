@@ -71,7 +71,6 @@ export default {
   data(){
     return{
       showlist: "",
-      arr : [{"name" : "hello", "prop" : "world"}],
       tableTitleData:[
         {
           label: '姓名',
@@ -165,8 +164,13 @@ export default {
           self.showlist = myData;
 
           let arr = [];
-          for(let i = 0; i < myData.length; i++){
-            arr.push({name:myData[i].姓名.toString(),stuId:myData[i].学号.toString()})
+          for( let i = 0 ; i < myData.length ; i ++ ) {
+
+            console.log( myData[i].姓名 )
+            console.log( myData[i].准考证号 )
+
+            // arr.push({name:myData[i].姓名.toString(),stuId:myData[i].学号.toString()})
+            arr.push({name:myData[i].姓名,stuId:myData[i].准考证号.toString()})
           }
           self.showlist=arr
 

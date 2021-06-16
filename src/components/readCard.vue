@@ -111,10 +111,13 @@
             this.$message.error("光标阅读机无卡");
             break;
           } else if (res.data[0].name == "EN05") {
-            this.$message.error("光标阅读机A传感器检测点线错");
+            alert("光标阅读机A传感器检测点线错");
             break;
           } else if (res.data[0].name == "EN09") {
-            this.$message.error("A传感器同步框计数值超界");
+            alert("A传感器同步框计数值超界");
+            break;
+          } else if (res.data[0].name == "EN07") {
+            alert("A传感器卡纸(同步信号)错");
             break;
           }
           console.log("res.data[0]:" + res.data[0])
@@ -131,6 +134,7 @@
       },
 
       goAhead() {
+
         console.log( this.list.length )
 
         this.$http.post('setSum' , this.list.length.toString() ).then(res=>{

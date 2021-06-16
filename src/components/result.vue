@@ -77,8 +77,6 @@
         console.log ( this.resForDis )
         this.$http.post( 'saveResult' , this.resForDis ).then( res => {
 
-
-
         } )
 
       }
