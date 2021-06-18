@@ -1,6 +1,6 @@
 <template xmlns:white-space="http://www.w3.org/1999/xhtml">
   <el-container class="container">
-    <el-header class="header">
+    <el-header class="header" style="height: 80px">
       <div class="nanhaoLogo">
         <img src="../assets/pictures/nanhaologo-tran.png" height="50px" alt="">
       </div>
@@ -152,6 +152,7 @@
   }
   .nanhaoLogo{
     margin-left: 40px;
+    margin-top : 10px ;
   }
   .tac{
     width: 200px;

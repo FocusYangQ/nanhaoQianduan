@@ -58,7 +58,7 @@
 
 <style>
 .login-container{
-  background-image: url("../assets/pictures/nanhaodemo.png");
+  background-image: url("../assets/pictures/nanhaodemo1.png");
   background-size: 100% 100%;
   height: 100%;
 }

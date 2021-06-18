@@ -105,8 +105,8 @@
         while (res.data[0].name !== "false") {
           console.log("=========================新数据展示========================")
           sum ++
-          console.log("进入while循环读取res.data:" + res.data)
-          console.log("测试数据1")
+          console.log ("进入while循环读取res.data:" + res.data)
+          console.log ("测试数据1")
           if (res.data[0].name == "EN16") {
             this.$message.error("光标阅读机无卡");
             break;

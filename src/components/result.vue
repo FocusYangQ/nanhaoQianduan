@@ -66,6 +66,20 @@
 
             }
 
+            this.$http.post ( 'forRank').then ( res => {
+
+              console.log ( res.data )
+
+              self.resForDis += "\n"
+
+              for ( var i = 0 ; i < Object.getOwnPropertyNames ( res.data ).length ; i ++ ) {
+
+                self.resForDis += res.data [ i ].name + "  " + res.data [ i ].stuId + "  " + res.data [ i ].score +"\n"
+
+              }
+
+            })
+
           } )
 
         } )
@@ -76,6 +90,8 @@
 
         console.log ( this.resForDis )
         this.$http.post( 'saveResult' , this.resForDis ).then( res => {
+
+
 
         } )
 
