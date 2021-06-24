@@ -94,6 +94,13 @@
         tableData: [], //需要data定义一些，tableData定义一个空数组，请求的数据都是存放这里面
       }
     },
+
+
+    created ( ) {
+      this.getData ( )
+    } ,
+
+
     methods: {
 
       async readCard() {
@@ -105,8 +112,6 @@
         while (res.data[0].name !== "false") {
           console.log("=========================新数据展示========================")
           sum ++
-          console.log ("进入while循环读取res.data:" + res.data)
-          console.log ("测试数据1")
           if (res.data[0].name == "EN16") {
             this.$message.error("光标阅读机无卡");
             break;
@@ -120,18 +125,39 @@
             alert("A传感器卡纸(同步信号)错");
             break;
           }
-          console.log("res.data[0]:" + res.data[0])
-          console.log( res.data[0] )
-          console.log("测试数据2")
-          this.list.push(res.data[0])
-          console.log("测试数据3")
-          res = await this.$http.post('another')
-          console.log("测试数据4")
+
+          this.list.push ( res.data [ 0 ] )
+          this.list.sort(function ( a , b ) {
+            return b.score - a.score ;
+          })
+          res = await this.$http.post ('another' )
           console.log("=========================新数据展示结束========================")
         }
-
-        console.log(list)
       },
+
+      getData ( ) {
+
+        console.log ( "测试是否执行" )
+
+        let obj
+
+        if ( this.list.length == 0 ) {
+
+          this.$http.post ( 'forRank' ).then ( res => {
+
+            for ( var i = 0 ; i < Object.getOwnPropertyNames ( res.data ).length ; i ++ ) {
+              console.log ( "测试执行" )
+              this.list.push ( {  name : res.data [ i ].name ,
+                                  score : res.data [ i ].score ,
+                                  stu_id : res.data [ i ].stuId ,
+                                  answer : res.data [ i ].ans  } ) ;
+            }
+
+          })
+        }
+
+      } ,
+
 
       goAhead() {
 

@@ -29,6 +29,12 @@
   export default {
     name: 'result' ,
 
+    created ( ) {
+
+      this.getTemName ( )
+
+    } ,
+
     data () {
 
       return {
@@ -68,8 +74,6 @@
 
             this.$http.post ( 'forRank').then ( res => {
 
-              console.log ( res.data )
-
               self.resForDis += "\n"
 
               for ( var i = 0 ; i < Object.getOwnPropertyNames ( res.data ).length ; i ++ ) {
@@ -89,13 +93,28 @@
       exportDataTo ( ) {
 
         console.log ( this.resForDis )
+
         this.$http.post( 'saveResult' , this.resForDis ).then( res => {
 
+          this.$http.post( 'deleteAllRank'  )
 
+        } )
+
+      } ,
+
+
+
+      getTemName ( ) {
+
+        this.$http.post ( 'getTemName' ).then ( res => {
+
+          console.log ( res )
 
         } )
 
       }
+
+
 
     }
   }

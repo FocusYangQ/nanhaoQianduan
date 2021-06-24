@@ -1,18 +1,13 @@
 <template>
   <div class="Container">
     <div class="BtnContainer">
-      <el-dropdown>
+      <el-dropdown trigger="click"  @command = "handleCommond">
         <el-button type="primary" class="select_tem">
           {{message}}<i class="el-icon-arrow-down el-icon--right"></i>
         </el-button>
         <el-dropdown-menu class="droproom" slot="dropdown">
-          <el-dropdown-item @click.native="select_to43T()">40T型答题卡</el-dropdown-item>
-          <el-dropdown-item @click.native="select_to43lu()">43lu型答题卡</el-dropdown-item>
-          <el-dropdown-item @click.native="select_to50lu()">50lu型答题卡</el-dropdown-item>
-          <el-dropdown-item @click.native="select_to50T()">50T型答题卡</el-dropdown-item>
-          <el-dropdown-item @click.native="select_to85T()">85T型答题卡</el-dropdown-item>
-          <el-dropdown-item @click.native="select_to90T()">90T型答题卡</el-dropdown-item>
-          <el-dropdown-item @click.native="select_to105T()">105T型答题卡</el-dropdown-item>
+          <el-dropdown-item v-for = " ( item , index ) in menulist " v-text = "item"
+                            :command = "item" @click.native= "item" ></el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
       <el-button
@@ -30,15 +25,9 @@
           <el-button type="primary" class="select_tem2">
             {{message2}}<i class="el-icon-arrow-down el-icon--right"></i>
           </el-button>
-          <el-dropdown-menu class="droproom" slot="dropdown">
-            <el-dropdown-item @click.native="select_to43T_2()">40T型答题卡</el-dropdown-item>
-            <el-dropdown-item @click.native="select_to43T_2()">40T型答题卡</el-dropdown-item>
-            <el-dropdown-item @click.native="select_to43lu_2()">43lu型答题卡</el-dropdown-item>
-            <el-dropdown-item @click.native="select_to50lu_2()">50lu型答题卡</el-dropdown-item>
-            <el-dropdown-item @click.native="select_to50T_2()">50T型答题卡</el-dropdown-item>
-            <el-dropdown-item @click.native="select_to85T_2()">85T型答题卡</el-dropdown-item>
-            <el-dropdown-item @click.native="select_to90T_2()">90T型答题卡</el-dropdown-item>
-            <el-dropdown-item @click.native="select_to105T_2()">105T型答题卡</el-dropdown-item>
+          <el-dropdown-menu class="droproom" slot="dropdown" >
+            <el-dropdown-item v-for = " ( item , index ) in menulist " v-text="item"
+                              :command="item" @click.native="item" > {{ item }} </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
         <el-button
@@ -73,71 +62,74 @@
         dataPost: {
           temName : '',
           TemText : '模板尚未导入'
-        }
+        } ,
+        menulist : []
       }
     },
+
+    created ( ) {
+
+      this.getTemName ( )
+
+    } ,
+
     methods: {
-      select_to43T() {
-        this.message = "40T型答题卡"
-      },
-      select_to43lu() {
-        this.message = "43lu型答题卡"
-      },
-      select_to50lu() {
-        this.message = "50lu型答题卡"
-      },
-      select_to50T() {
-        this.message = "50T型答题卡"
-      },
-      select_to85T() {
-        this.message = "85T型答题卡"
-      },
-      select_to90T() {
-        this.message = "90T型答题卡"
-      },
-      select_to105T() {
-        this.message = "105T型答题卡"
-      },
-      select_to43T_2() {
-        this.message2 = "40T型答题卡"
-      },
-      select_to43lu_2() {
-        this.message2 = "43lu型答题卡"
-      },
-      select_to50lu_2() {
-        this.message2 = "50lu型答题卡"
-      },
-      select_to50T_2() {
-        this.message2 = "50T型答题卡"
-      },
-      select_to85T_2() {
-        this.message2 = "85T型答题卡"
-      },
-      select_to90T_2() {
-        this.message2 = "90T型答题卡"
-      },
-      select_to105T_2() {
-        this.message2 = "105T型答题卡"
-      },
+
+      handleCommond ( item ) {
+
+        switch ( item ) {
+
+          case "40T" :
+            this.message = "40T型答题卡"
+                break ;
+
+          case "105T" :
+            this.message = "105T型答题卡"
+            break ;
+
+          case "43lu" :
+            this.message = "43lu型答题卡"
+            break ;
+
+          case "50lu" :
+            this.message = "50lu型答题卡"
+            break ;
+
+          case "50T" :
+            this.message = "50T型答题卡"
+            break ;
+
+          case "85T" :
+            this.message = "85T型答题卡"
+            break ;
+
+          case "90T" :
+            this.message = "90T型答题卡"
+            break ;
+        }
+
+      } ,
+
       impoTem(){
         this.$http.post('readTem',this.message2).then(res=>{
             this.dataPost.TemText = res.data;
         })
       },
+
       savTem(){
         console.log(this.temName)
         console.log(this.TemText)
         const obj = {
           first : this.temName,
           second : this.TemText
-      }
+        }
         console.log(obj)
         this.$http.post('saveTem', this.dataPost).then(res=>{
             if(res.data == "0"){
               this.$message.success("模板设置成功");
-            } else if(res.data == "2") {
+            } else if(res.data == "2" ) {
               this.$message.error("文件名重复，文件已存在");
-            } else if(res.data == "1") {
+            } else if(res.data == "1" ) {
               this.$message.error("文件创建失败");
             }
         })
@@ -154,6 +146,25 @@
           }
         })
       },
+
+      getTemName ( ) {
+
+        this.$http.post ( 'getTemName' ).then ( res => {
+
+          console.log ( res )
+          for ( let i = 0 ; i < Object.getOwnPropertyNames ( res.data ).length ; i ++ ) {
+
+            console.log ( res.data[i] )
+            this.menulist.push ( res.data[i] )
+
+          }
+
+          console.log ( "this.menulist =  " + this.menulist )
+
+        } )
+
+      }
+
     }
   }
 </script>
