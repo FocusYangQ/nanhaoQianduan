@@ -3,7 +3,7 @@ const MyHttpServer = {}
 
 MyHttpServer.install =  (Vue) => {
 
-  axios.defaults.baseURL = 'http://localhost:8080/'
+  axios.defaults.baseURL = 'http://192.168.2.235:8080/'
   Vue.prototype.$http = axios
 
 }
