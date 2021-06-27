@@ -44,12 +44,23 @@
     },
     methods: {
       handle_Login(){
-        this.$http.post('login',this.user_info).then(res=>{
-          console.log(res);
-          if(res.data==true){
-            return this.$router.push('/Home');
+
+        this.$http.post('testUser').then(res=>{
+
+          if(res.data== true ){
+
+            this.$http.post('p')
+            this.$http.post('login',this.user_info).then(res=>{
+              console.log(res);
+              if(res.data==true){
+                return this.$router.push('/Home');
+              }
+              alert("账号密码错误");
+            })
+
+          } else {
+            alert("系统正在被使用，请稍后重试……");
           }
-          alert("账号密码错误");
         })
       }
     }

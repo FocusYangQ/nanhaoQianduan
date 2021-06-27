@@ -38,9 +38,13 @@
                             @click="readCard()">
                 <span slot="title">读卡</span>
               </el-menu-item>
-              <el-menu-item index="7" class="asideChoose2"
+              <el-menu-item index="7" class="asideChoose"
                             @click="disresult()">
                 <span slot="title">统计结果</span>
+              </el-menu-item>
+              <el-menu-item index="8" class="asideChoose2"
+                            @click="exitSys()">
+                <span slot="title">退出</span>
               </el-menu-item>
             </el-menu>
           </el-col>
@@ -56,6 +60,40 @@
 <script>
   export default {
     name: 'Home',
+
+
+    mounted ( ) {
+
+      let self = this
+
+      window.addEventListener('beforeunload', function (e) {
+        
+        self.$http.post ( 'v' )
+        e.preventDefault()
+        e.returnValue = '确认退出登录'
+
+      })
+
+      // window.addEventListener('beforeunload', function ( e ) {
+      //
+      //   console.log ( "test" )
+      //   console.log ( "test2" )
+      //   e.preventDefault()
+      //
+      // },)
+
+      window.onbeforeunload = function () {
+        logout();
+      };
+
+    } ,
+
+
+
+    // created ( ) {
+    //
+    // } ,
+
     data(){
       return{
         message:"请选择答题卡类型",
@@ -64,6 +102,19 @@
       }
     },
     methods:{
+
+      vv ( ) {
+
+        this.$http.post ( 'v')
+
+      } ,
+
+      logout() {
+
+        this.$http.post ( 'v')
+
+      } ,
+
       set_tem(){
         this.$http.post('set_tem',this.message).then(res=>{
           console.log(res)
@@ -117,6 +168,20 @@
       },
       handleClose(key, keyPath) {
         console.log(key, keyPath);
+      } ,
+
+      exitSys ( ) {
+
+        this.$http.post('v' ).then(res=>{
+
+          if ( res.data == true ) {
+            return this.$router.push('/Login');
+          } else {
+            alert( "退出失败，请重试！" ) ;
+          }
+
+        })
+
       }
     }
   }
